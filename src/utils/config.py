@@ -21,16 +21,25 @@ class Config:
     EXPLICIT_WAIT = 30
     PAGE_LOAD_TIMEOUT = 60
     
-    # Test Users
-    TEST_CUSTOMER = {
-        "email": "customer@test.com",
-        "password": "Password123!"
+    VALID_CUSTOMER = {
+        "username": "souhailclient",
+        "password": "Souhail123",
+        "email": "client@gmail.com"
     }
     
-    TEST_ADMIN = {
-        "email": "admin@restaurant.com",
-        "password": "Admin123!"
+    VALID_ADMIN = {
+        "username": "souhail",
+        "password": "Souhail123",
+        "email": "souhail@gmail.com"
     }
+    
+    # Invalid users for negative testing
+    INVALID_USERS = [
+        {"username": "wronguser", "password": "password123"},
+        {"username": "testuser", "password": "wrongpass"},
+        {"username": "", "password": "password123"},
+        {"username": "testuser", "password": ""}
+    ]
     
     TEST_CHEF = {
         "email": "chef@restaurant.com",

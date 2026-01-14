@@ -32,6 +32,7 @@ files_to_fix = [
     "src/pages/login_page.py",
     "src/pages/menu_details_page.py",
     "src/pages/menu_page.py",
+    "src/pages/items_page.py",
     "src/tests/unit_tests.py"
 ]
 
