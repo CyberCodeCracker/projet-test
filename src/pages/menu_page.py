@@ -4,7 +4,7 @@ AI-Assisted Development: This file was generated with AI assistance
 """
 from .base_page import BasePage
 from selenium.webdriver.common.by import By
-from src.utils.config import Config
+from utils.config import Config
 
 class MenuPage(BasePage):
     """Menu page locators and actions"""

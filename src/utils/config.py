@@ -2,6 +2,7 @@
 Configuration for Golden Fork Restaurant Test Suite
 AI-Assisted Development: This configuration file was generated with AI assistance
 """
+from datetime import datetime
 import os
 from pathlib import Path
 

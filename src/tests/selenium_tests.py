@@ -2,6 +2,8 @@
 Main Selenium Test Suite for Golden Fork Restaurant App
 AI-Assisted Development: This test suite was generated with AI assistance using DeepSeek
 """
+import sys
+import os
 import unittest
 import pytest
 from time import sleep
@@ -11,15 +13,57 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from src.pages.login_page import LoginPage
-from src.pages.menu_page import MenuPage
-from src.pages.menu_details_page import MenuDetailsPage
-from src.pages.categories_page import CategoriesPage
-from src.pages.items_page import ItemsPage
-from src.pages.admin_clients_page import AdminClientsPage
-from src.pages.checkout_page import CheckoutPage
-from src.utils.config import Config
-from src.utils.helpers import take_screenshot, log_test_result
+# =============================================
+# FIX: SETUP PATHS BEFORE ANY IMPORTS
+# =============================================
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+src_path = os.path.dirname(current_dir)  # Go up from tests to src
+
+# Add src to Python path BEFORE trying to import anything
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+    print(f"DEBUG: Added {src_path} to Python path")
+
+# =============================================
+# NOW IMPORT WITHOUT 'src.' PREFIX
+# =============================================
+
+try:
+    from pages.login_page import LoginPage
+    from pages.menu_page import MenuPage
+    from pages.menu_details_page import MenuDetailsPage
+    from pages.categories_page import CategoriesPage
+    from pages.items_page import ItemsPage
+    from pages.admin_clients_page import AdminClientsPage
+    from pages.checkout_page import CheckoutPage
+    from utils.config import Config
+    from utils.helpers import take_screenshot, log_test_result
+    print("DEBUG: All imports successful")
+except ImportError as e:
+    print(f"DEBUG: Import error: {e}")
+    print(f"DEBUG: Current sys.path: {sys.path[:3]}")
+    
+    # Try to show what's available
+    print("\nAvailable in src/pages:")
+    pages_dir = os.path.join(src_path, 'pages')
+    if os.path.exists(pages_dir):
+        for f in os.listdir(pages_dir):
+            if f.endswith('.py'):
+                print(f"  - {f}")
+    
+    print("\nAvailable in src/utils:")
+    utils_dir = os.path.join(src_path, 'utils')
+    if os.path.exists(utils_dir):
+        for f in os.listdir(utils_dir):
+            if f.endswith('.py'):
+                print(f"  - {f}")
+    
+    raise
+
+# =============================================
+# REST OF THE CODE (UNCHANGED)
+# =============================================
 
 class GoldenForkSeleniumTests:
     """Main test class for Golden Fork Restaurant application"""
@@ -290,6 +334,7 @@ class GoldenForkSeleniumTests:
         
         # Check if items page loads
         assert self.items_page.is_displayed(ItemsPage.PAGE_TITLE), "Items page title not found"
+        
         
         # Get initial item count
         initial_count = self.items_page.get_item_count()

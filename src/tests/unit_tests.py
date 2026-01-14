@@ -2,11 +2,29 @@
 Unit Tests for Golden Fork Restaurant API
 AI-Assisted Development: This test file was generated with AI assistance
 """
+import os, sys
+
 import pytest
 import requests
 import json
 from datetime import datetime
-from src.utils.config import Config
+from utils.config import Config
+
+# Add src to Python path for imports
+current_dir = os.path.dirname(os.path.abspath(__file__))
+src_path = os.path.dirname(current_dir)  # Go up from tests to src
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+    print(f"DEBUG: Added {src_path} to Python path in unit_tests.py")
+
+# Now import WITHOUT 'src.' prefix
+try:
+    from utils.config import Config
+    print("DEBUG: Config imported successfully in unit_tests.py")
+except ImportError as e:
+    print(f"DEBUG: Import error in unit_tests.py: {e}")
+    print(f"DEBUG: Current sys.path: {sys.path[:3]}")
+    raise
 
 class TestGoldenForkAPI:
     """Unit tests for REST API endpoints"""
